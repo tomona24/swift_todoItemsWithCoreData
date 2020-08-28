@@ -11,8 +11,12 @@ import Foundation
 class TodoItem: NSObject {
 	var text = ""
 	var checked = false
-	
+    var priority : Priority = .medium
 	func toggleCheckmark() {
 		self.checked = !self.checked
 	}
+    
+    enum Priority: Int, CaseIterable {
+      case high, medium, low
+    }
 }

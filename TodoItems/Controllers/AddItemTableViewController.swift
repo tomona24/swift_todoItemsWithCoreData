@@ -23,8 +23,7 @@ class AddItemTableViewController: UITableViewController {
   weak var delegate: AddItemViewControllerDelegate?
   weak var itemToEdit: TodoItem?
   
-  var container: NSPersistentContainer!
-    
+//  var container: NSPersistentContainer!
     
   @IBAction func cancel(_ sender: UIBarButtonItem) {
     delegate?.addItemDidCancel()

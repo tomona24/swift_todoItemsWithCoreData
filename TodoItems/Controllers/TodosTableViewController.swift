@@ -20,7 +20,7 @@ class TodosTableViewController: UITableViewController {
         let frc = NSFetchedResultsController<ManagedTodoItem>(
             fetchRequest: request,
             managedObjectContext: container!.viewContext,
-            sectionNameKeyPath: "firstLetter",
+            sectionNameKeyPath: "text",
             cacheName: nil
         )
         return frc
@@ -34,7 +34,8 @@ class TodosTableViewController: UITableViewController {
         navigationItem.leftBarButtonItem = editButtonItem
         tableView.allowsMultipleSelectionDuringEditing = true
         todoList.container = container
-        
+        todoList.update()
+        tableView.reloadData()
         // removing bar button item dynamically
         // navigationItem.rightBarButtonItems?.remove(at: 1)
         
@@ -192,7 +193,6 @@ class TodosTableViewController: UITableViewController {
         // change model
         if let srcPriority = priorityForSectionIndex(sourceIndexPath.section),
             let destPriority = priorityForSectionIndex(destinationIndexPath.section) {
-            
             let item = todoList.todoList(for: srcPriority)[sourceIndexPath.row]
             todoList.move(item: item, from: srcPriority, at: sourceIndexPath, to: destPriority, at: destinationIndexPath)
         }
@@ -237,14 +237,9 @@ extension TodosTableViewController: AddItemViewControllerDelegate {
                 }
             }
         }
-        print("editing")
         container?.performBackgroundTask{[weak self] context in
-            print(previousItem.text)
-            print(item.text)
             if let editedItem = try? ManagedTodoItem.findOrCreateSource(matching: previousItem, in: context) {
-                print(editedItem.text)
                 editedItem.text = item.text
-                print(editedItem.text)
                 try? context.save()
             }
         }

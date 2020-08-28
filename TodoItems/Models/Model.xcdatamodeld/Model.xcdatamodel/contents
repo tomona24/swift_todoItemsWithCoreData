@@ -2,9 +2,10 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ManagedTodoItem" representedClassName=".ManagedTodoItem" syncable="YES" codeGenerationType="category">
         <attribute name="checked" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="priority" optional="YES" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="text" attributeType="String"/>
     </entity>
     <elements>
-        <element name="ManagedTodoItem" positionX="-36" positionY="9" width="128" height="73"/>
+        <element name="ManagedTodoItem" positionX="-36" positionY="9" width="128" height="88"/>
     </elements>
 </model>
