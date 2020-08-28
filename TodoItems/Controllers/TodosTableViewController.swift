@@ -151,6 +151,12 @@ class TodosTableViewController: UITableViewController {
                 // uncheck(check) the checkmark from the cell
                 configureCheckmark(for: cell, with: item)
 
+                container?.performBackgroundTask{[weak self] context in
+                    let _ = try? ManagedTodoItem.findOrCreateSource(matching: item, in: context)
+                    try? context.save()
+                }
+                
+                
                 // deselect the row (no-highlighting)
                 tableView.deselectRow(at: indexPath, animated: true)
             }
@@ -212,12 +218,6 @@ extension TodosTableViewController: AddItemViewControllerDelegate {
         navigationController?.popViewController(animated: true)
         // update model
         todoList.addTodo(item: item, for: .medium)
-        container?.performBackgroundTask{[weak self] context in
-            //            let newItem = NSEntityDescription.insertNewObject(forEntityName: "ManagedTodoItem", into: context) as! ManagedTodoItem
-            //            newItem.text = item.text
-            _ = try? ManagedTodoItem.findOrCreateSource(matching: item, in: context)
-            try? context.save()
-        }
         
         // update tableview
         let index = todoList.todoList(for: .medium).count - 1
@@ -237,12 +237,7 @@ extension TodosTableViewController: AddItemViewControllerDelegate {
                 }
             }
         }
-        container?.performBackgroundTask{[weak self] context in
-            if let editedItem = try? ManagedTodoItem.findOrCreateSource(matching: previousItem, in: context) {
-                editedItem.text = item.text
-                try? context.save()
-            }
-        }
+
         navigationController?.popViewController(animated: true)
     }
     

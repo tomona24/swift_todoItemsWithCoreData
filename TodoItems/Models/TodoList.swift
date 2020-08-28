@@ -15,9 +15,9 @@ class TodoList {
     
     private var todos: [TodoItem] = []
     
-    private var highPriorityTodos: [TodoItem] = []
-    private var mediumPriorityTodos: [TodoItem] = []
-    private var lowPriorityTodos: [TodoItem] = []
+     var highPriorityTodos: [TodoItem] = []
+     var mediumPriorityTodos: [TodoItem] = []
+     var lowPriorityTodos: [TodoItem] = []
     
     enum Priority: Int, CaseIterable {
         case high, medium, low
@@ -85,7 +85,6 @@ class TodoList {
         }
         container?.performBackgroundTask{[weak self] context in
             var changeItem = try? ManagedTodoItem.findOrCreateSource(matching: item, in: context, priority: priority.rawValue)
-            changeItem?.checked = item.checked
             try? context.save()
         }
     }
