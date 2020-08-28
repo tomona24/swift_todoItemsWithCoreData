@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18E226" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Todo" representedClassName="Todo" syncable="YES" codeGenerationType="class">
+        <attribute name="checked" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="todoDesc" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="TodoList" representedClassName="TodoList" syncable="YES" codeGenerationType="class">
+        <relationship name="todos" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Todo" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Todo" positionX="-2406.641174316406" positionY="-1105.978881835938" width="128" height="75"/>
+        <element name="TodoList" positionX="-2175.951110839844" positionY="-1117.902191162109" width="128" height="58"/>
+    </elements>
+</model>
