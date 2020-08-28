@@ -15,18 +15,18 @@ class TodoList {
     
     private var todos: [TodoItem] = []
     
-     var highPriorityTodos: [TodoItem] = []
-     var mediumPriorityTodos: [TodoItem] = []
-     var lowPriorityTodos: [TodoItem] = []
+   private var highPriorityTodos: [TodoItem] = []
+    private var mediumPriorityTodos: [TodoItem] = []
+    private var lowPriorityTodos: [TodoItem] = []
     
     enum Priority: Int, CaseIterable {
         case high, medium, low
     }
     
-    init() {
-    }
+    init() {}
     
     func update() {
+
         container?.performBackgroundTask{[weak self] context in
             if let items = try? ManagedTodoItem.getAllResources(in: context){
                 for item in items {

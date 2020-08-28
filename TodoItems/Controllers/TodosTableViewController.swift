@@ -150,7 +150,7 @@ class TodosTableViewController: UITableViewController {
                 item.toggleCheckmark()
                 // uncheck(check) the checkmark from the cell
                 configureCheckmark(for: cell, with: item)
-
+                
                 container?.performBackgroundTask{[weak self] context in
                     let _ = try? ManagedTodoItem.findOrCreateSource(matching: item, in: context)
                     try? context.save()
@@ -184,7 +184,7 @@ class TodosTableViewController: UITableViewController {
         if let priority = priorityForSectionIndex(indexPath.section) {
             let item = todoList.todoList(for: priority)[indexPath.row]
             todoList.remove(item: item, from: priority, at: indexPath.row)
-
+            
             // update the tableview
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
@@ -227,6 +227,10 @@ extension TodosTableViewController: AddItemViewControllerDelegate {
     
     func addItemDidFinishEditing(_ item: TodoItem, previousItem: TodoItem) {
         // what is the index of "item" from todos array.
+        container?.performBackgroundTask{[weak self] context in
+            var changeItem = try? ManagedTodoItem.editTitle(matching: previousItem, in: context, newInfo: item)
+            try? context.save()
+        }
         for priority in TodoList.Priority.allCases {
             var priorityArray = todoList.todoList(for: priority)
             if let index = priorityArray.firstIndex(of: item) {
@@ -237,8 +241,8 @@ extension TodosTableViewController: AddItemViewControllerDelegate {
                 }
             }
         }
-
         navigationController?.popViewController(animated: true)
+        tableView.reloadData()
     }
     
 }
